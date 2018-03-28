@@ -1,0 +1,45 @@
+	<ion-view view-title="Kategori" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top"  scroll="true"   id="page-categories" class=" page-categories">
+		
+<!-- code refresh -->
+<ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()"></ion-refresher>
+<!-- ./code refresh -->
+
+
+<!-- code search -->
+<ion-list class="card list" >
+	<div class="item item-input">
+		<i class="icon ion-search placeholder-icon"></i>
+		<input type="search" ng-model="filter_categories.name" placeholder="Filter" aria-label="filter categories" />
+	</div>
+</ion-list>
+<!-- ./code search -->
+
+
+<!-- code listing -->
+<div class="card list light-bg animate-none">
+	<a class="item ink-colorful item-icon-left" ng-repeat="item in categories | filter:filter_categories as results" ng-init="$last ? fireEvent() : null" ng-href="#/wp_eazy_setup/posts/{{item.id}}" >
+		<i class="icon colorful ion-social-buffer"></i>
+		<span ng-bind-html="item.name | to_trusted"></span>
+        <span class="badge badge-assertive" >{{item.count}}</span>
+	</a>
+</div>
+<!-- ./code listing -->
+
+<!-- code infinite scroll -->
+<ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="onInfinite()" distance="5px" ng-if="hasMoreData"></ion-infinite-scroll>
+<!-- ./code infinite scroll -->
+
+<!-- code search result not found -->
+<ion-list ng-if="results.length == 0" class="list card">
+	<div class="item"  >
+		<p>No results found...!</p>
+	</div>
+</ion-list>
+<!-- ./code search result not found -->
+
+
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>
